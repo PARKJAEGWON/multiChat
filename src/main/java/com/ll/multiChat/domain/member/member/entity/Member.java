@@ -1,16 +1,12 @@
-package com.ll.multiChat.domain.chat.chatRoom.entity;
+package com.ll.multiChat.domain.member.member.entity;
 
-import com.ll.multiChat.domain.chat.chatMessage.entity.ChatMessage;
 import com.ll.multiChat.global.baseEntity.BaseEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import java.util.List;
 
 @Entity
 @Setter
@@ -18,10 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class ChatRoom extends BaseEntity {
+public class Member extends BaseEntity {
 
-    private String name;
+    String username;
 
-    @OneToMany
-    private List<ChatMessage> chatMessages;
+    String password;
 }
