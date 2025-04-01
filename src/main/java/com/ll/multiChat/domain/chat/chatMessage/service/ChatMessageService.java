@@ -5,7 +5,6 @@ import com.ll.multiChat.domain.chat.chatMessage.repository.ChatMessageRepository
 import com.ll.multiChat.domain.chat.chatRoom.entity.ChatRoom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,4 +21,5 @@ public class ChatMessageService {
 
         chatMessageRepository.save(chatMessage);
     }
+
 }
