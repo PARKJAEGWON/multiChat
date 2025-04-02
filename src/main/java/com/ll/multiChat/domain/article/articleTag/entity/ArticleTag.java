@@ -1,9 +1,9 @@
-package com.ll.multiChat.domain.chat.chatMessage.entity;
+package com.ll.multiChat.domain.article.articleTag.entity;
 
-
-import com.ll.multiChat.domain.chat.chatRoom.entity.ChatRoom;
+import com.ll.multiChat.domain.article.article.entity.Article;
 import com.ll.multiChat.global.baseEntity.BaseEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,18 +12,15 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @SuperBuilder
-public class ChatMessage extends BaseEntity {
+public class ArticleTag extends BaseEntity {
 
-    @ManyToOne
-    private ChatRoom chatRoom;
-
-    private String writeName;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Article article;
     private String content;
 
 
