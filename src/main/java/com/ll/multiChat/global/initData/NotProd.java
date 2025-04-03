@@ -3,10 +3,12 @@ package com.ll.multiChat.global.initData;
 
 import com.ll.multiChat.domain.article.article.entity.Article;
 import com.ll.multiChat.domain.article.article.service.ArticleService;
+
 import com.ll.multiChat.domain.member.member.entity.Member;
 import com.ll.multiChat.domain.member.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
