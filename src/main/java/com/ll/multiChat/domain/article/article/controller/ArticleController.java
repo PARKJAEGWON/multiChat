@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/article")
@@ -22,15 +24,39 @@ import java.util.List;
 public class ArticleController {
     private final ArticleService articleService;
 
+//    @GetMapping("/list")
+//    public String list(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
+//        List<Sort.Order> sorts = new ArrayList<>(); // 정렬 조건을 저장할 리스트 생성
+//        sorts.add(Sort.Order.desc("id")); // id를 기준으로 내림차순 정렬 추가
+//        // 페이지네이션과 정렬 정보를 포함한 Pageable 객체 생성 (페이지 번호, 페이지 크기, 정렬 정보)
+//        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+//
+//        Page<Article> itemsPage = articleService.search(pageable);
+//        model.addAttribute("itemsPage", itemsPage);
+//        return "article/list";
+//    }
+
     @GetMapping("/list")
-    public String list(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        List<Sort.Order> sorts = new ArrayList<>(); // 정렬 조건을 저장할 리스트 생성
-        sorts.add(Sort.Order.desc("id")); // id를 기준으로 내림차순 정렬 추가
-        // 페이지네이션과 정렬 정보를 포함한 Pageable 객체 생성 (페이지 번호, 페이지 크기, 정렬 정보)
+    public String list(
+            @RequestParam(value = "kwType", defaultValue = "") List<String> kwTypes,
+            @RequestParam(defaultValue = "") String kw,
+            @RequestParam(defaultValue = "0") int page,
+            Model model
+    ) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("id"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 
-        Page<Article> itemsPage = articleService.search(pageable);
+        Map<String, Boolean> kwTypesMap = new HashMap<>();
+        for (String kwType : kwTypes) {
+            kwTypesMap.put(kwType, true);
+        }
+
+        // log.debug("kwTypesMap: {}", kwTypesMap);
+        Page<Article> itemsPage = articleService.search(kwTypes, kw, pageable);
         model.addAttribute("itemsPage", itemsPage);
+        model.addAttribute("kwTypesMap", kwTypesMap);
+
         return "article/list";
     }
 }
