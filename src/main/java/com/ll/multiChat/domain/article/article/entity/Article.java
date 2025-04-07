@@ -1,5 +1,6 @@
 package com.ll.multiChat.domain.article.article.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ll.multiChat.domain.article.articleComment.entity.ArticleComment;
 import com.ll.multiChat.domain.article.articleTag.entity.ArticleTag;
 import com.ll.multiChat.domain.member.member.entity.Member;
@@ -21,8 +22,12 @@ public class Article extends BaseEntity {
     private String title;
     private String content;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY) //디폴트가 fetchtype eager 즉시 모드 |매니 투 원도 레이지모드로 설정해주면 좋다는데 더 공부해야함
     private Member author;
+
+
+    @JsonIgnore
     //디폴트가 fetchtype lazy 지연 모드 Cascoade부모가 삭제되면 자식도 삭제됨 oprhanRemoval 자식요소가 삭제되면 삭제를 시킨다는데..다시 공부해야할듯 이해안감
     @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     @Builder.Default
@@ -49,6 +54,7 @@ public class Article extends BaseEntity {
         comments.remove(articleComment);
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "article",cascade = CascadeType.ALL,orphanRemoval = true)
     @Builder.Default
     private List<ArticleTag> tags = new ArrayList<>();
