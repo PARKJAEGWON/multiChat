@@ -22,7 +22,6 @@ public class Article extends BaseEntity {
     private String title;
     private String content;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY) //디폴트가 fetchtype eager 즉시 모드 |매니 투 원도 레이지모드로 설정해주면 좋다는데 더 공부해야함
     private Member author;
 

@@ -43,11 +43,11 @@ public class NotProd {
                 Member member2 = memberService.join("철수", "1234").getData();
                 Member member3 = memberService.join("맹구", "1234").getData();
 
-                Article article1 = articleService.write(member1.getId(), "첫번째 게시글", "내용1").getData();
-                Article article2 = articleService.write(member1.getId(), "두번째 게시글", "내용2").getData();
+                Article article1 = articleService.write( "첫번째 게시글", "내용1");
+                Article article2 = articleService.write( "두번째 게시글", "내용2");
 
-                Article article3 = articleService.write(member2.getId(), "세번째 게시글", "내용3").getData();
-                Article article4 = articleService.write(member2.getId(), "네번째 게시글", "내용4").getData();
+                Article article3 = articleService.write("세번째 게시글", "내용3");
+                Article article4 = articleService.write( "네번째 게시글", "내용4");
 
                 article1.addComment(member1, "댓글1");
                 article1.addComment(member1, "댓글2");

@@ -4,7 +4,6 @@ import com.ll.multiChat.domain.article.article.entity.Article;
 import com.ll.multiChat.domain.article.article.repository.ArticleRepository;
 import com.ll.multiChat.domain.article.articleComment.entity.ArticleComment;
 import com.ll.multiChat.domain.member.member.entity.Member;
-import com.ll.multiChat.global.config.RsData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,15 +30,16 @@ public class ArticleService {
 //        articleRepository.save(article);
 //        return RsData.of("200", "게시글 작성 완료",article);
 //    }
-    public RsData<Article> write(Long memberId, String title, String content){
+    public Article write(String title, String content){
         Article article = Article.builder()
-                .author(Member.builder().id(memberId).build())
+                .author(Member.builder().id(1L).build())
                 .title(title)
                 .content(content)
                 .build();
 
-        articleRepository.save(article);
-    return RsData.of("200", "게시글 작성 완료", article);
+        Article resultArticle = articleRepository.save(article);
+
+    return resultArticle;
     }
 
     public Optional<Article> findById(Long id){
@@ -51,11 +51,13 @@ public class ArticleService {
     }
 
     @Transactional
-    public void modify(Article article, String title, String content){
+    public Article modify(Article article, String title, String content){
         article.setTitle(title);
         article.setContent(content);
 
         articleRepository.save(article);
+
+        return article;
     }
 
     @Transactional//트랜잭션이 적용되면 영속성 컨텍스트 내에서 엔티티 변경을 감지(더티 체킹)하여 자동으로 DB에 반영됨
@@ -66,6 +68,7 @@ public class ArticleService {
     public List<Article> findAll() {
         return articleRepository.findAll();
     }
+
 
     public void delete(Long id) {
         this.articleRepository.deleteById(id);
