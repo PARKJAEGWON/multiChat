@@ -39,9 +39,9 @@ public class NotProd {
                 IntStream.rangeClosed(1, 10).forEach(num -> {
                     chatMessageService.write(chatRoom1, "홍길동", "공부 메세지" + num);
                 });
-                Member member1 = memberService.join("짱구", "1234").getData();
-                Member member2 = memberService.join("철수", "1234").getData();
-                Member member3 = memberService.join("맹구", "1234").getData();
+                Member member1 = memberService.join("짱구", "1234");
+                Member member2 = memberService.join("철수", "1234");
+                Member member3 = memberService.join("맹구", "1234");
 
                 Article article1 = articleService.write( "첫번째 게시글", "내용1");
                 Article article2 = articleService.write( "두번째 게시글", "내용2");

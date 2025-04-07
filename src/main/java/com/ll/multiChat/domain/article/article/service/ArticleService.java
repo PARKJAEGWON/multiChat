@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 //@Transactional(readOnly = true)
-@Transactional
+@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
@@ -70,6 +70,7 @@ public class ArticleService {
     }
 
 
+    @Transactional
     public void delete(Long id) {
         this.articleRepository.deleteById(id);
     }

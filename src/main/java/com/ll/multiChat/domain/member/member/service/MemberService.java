@@ -2,8 +2,8 @@ package com.ll.multiChat.domain.member.member.service;
 
 import com.ll.multiChat.domain.member.member.entity.Member;
 import com.ll.multiChat.domain.member.member.repository.MemberRepository;
-import com.ll.multiChat.global.config.RsData;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,16 +12,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public RsData<Member>join(String username, String password){
+    public Member join(String username, String password){
         Member member = new Member();
 
         member.setUsername(username);
-        member.setPassword(password);
+        member.setPassword(passwordEncoder.encode(password));
 
         memberRepository.save(member);
 
-        return RsData.of("200","%s 님 가입을 환영합니다.".formatted(username), member);
+        return member;
     }
 
     public Optional<Member> findById(Long id) {
