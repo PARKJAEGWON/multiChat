@@ -39,7 +39,7 @@ public class ApiV1ArticleController {
     public RsData<ArticleDto> writeArticle(@Valid @RequestBody ArticleWriteRequest articleWriteRequest){
         Article article = articleService.write(articleWriteRequest.getTitle(), articleWriteRequest.getContent());
 
-        return RsData.of("200", "게시글 생성 완료",new ArticleDto(article));
+        return new RsData<>("200", "게시글 생성 완료",new ArticleDto(article));
     }
 
     @PatchMapping("/{id}")
@@ -49,13 +49,13 @@ public class ApiV1ArticleController {
 
         Article modifiedArticle =this.articleService.modify(article, articleModifyRequest.getTitle(), articleModifyRequest.getContent());
 
-        return RsData.of("200", "게시글 수정 완료",new ArticleDto(modifiedArticle));
+        return new RsData<>("200", "게시글 수정 완료",new ArticleDto(modifiedArticle));
     }
 
     @DeleteMapping("/{id}")
     public RsData<Void> deleteArticle(@PathVariable("id")Long id){
         this.articleService.delete(id);
-        return RsData.of("200", "게시글 삭제 완료",null);
+        return new RsData<>("200", "게시글 삭제 완료",null);
 
     }
 }
