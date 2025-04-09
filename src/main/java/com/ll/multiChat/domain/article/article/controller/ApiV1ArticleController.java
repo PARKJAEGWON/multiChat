@@ -56,6 +56,5 @@ public class ApiV1ArticleController {
     public RsData<Void> deleteArticle(@PathVariable("id")Long id){
         this.articleService.delete(id);
         return new RsData<>("200", "게시글 삭제 완료",null);
-
     }
 }
