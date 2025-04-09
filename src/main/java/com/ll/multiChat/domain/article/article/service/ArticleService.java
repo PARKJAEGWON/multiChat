@@ -30,6 +30,7 @@ public class ArticleService {
 //        articleRepository.save(article);
 //        return RsData.of("200", "게시글 작성 완료",article);
 //    }
+    @Transactional
     public Article write(String title, String content){
         Article article = Article.builder()
                 .author(Member.builder().id(1L).build())
@@ -39,7 +40,7 @@ public class ArticleService {
 
         Article resultArticle = articleRepository.save(article);
 
-    return resultArticle;
+        return resultArticle;
     }
 
     public Optional<Article> findById(Long id){

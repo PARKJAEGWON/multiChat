@@ -45,12 +45,35 @@ public class ApiV1MemberController {
 
         response.addCookie(cookie);
 
+        String refreshToken = member.getRefreshToken();
+        Cookie refreshTokenCookie = new Cookie("refreshToken",refreshToken);
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setSecure(true);
+        refreshTokenCookie.setPath("/");
+        refreshTokenCookie.setMaxAge(60 * 6);
+
+        response.addCookie(refreshTokenCookie);
+
+
+
         return new RsData<>("200", "로그인 성공");
     }
 
     @GetMapping("/logout")
-    public void logout(){
+    public RsData<Void> logout(HttpServletResponse response){
 
+        Cookie cookie = (new Cookie("accessToken",null));
+            cookie.setPath("/");
+            cookie.setMaxAge(0);
+
+        response.addCookie(cookie);
+
+        Cookie refreshTokenCookie = new Cookie("refreshToken",null);
+            refreshTokenCookie.setPath("/");
+            refreshTokenCookie.setMaxAge(0);
+
+        response.addCookie(refreshTokenCookie);
+        return new RsData<>("200","로그아웃 성공");
     }
 
     @GetMapping("/me")
